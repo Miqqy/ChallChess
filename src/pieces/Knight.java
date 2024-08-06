@@ -1,12 +1,13 @@
 package pieces;
 
+import main.PieceType;
 import main.Screen;
 
 public class Knight extends Pieces {
 
 	public Knight(int color, int col, int row) {
 		super(color, col, row);
-
+		type = PieceType.KNIGHT;
 		if (color == Screen.WHITE) {
 			img = getImg("/pieces/Knightw");
 		} else {

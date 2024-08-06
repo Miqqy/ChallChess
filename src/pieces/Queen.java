@@ -1,12 +1,13 @@
 package pieces;
 
+import main.PieceType;
 import main.Screen;
 
 public class Queen extends Pieces {
 
 	public Queen(int color, int col, int row) {
 		super(color, col, row);
-
+		type = PieceType.QUEEN;
 		if (color == Screen.WHITE) {
 			img = getImg("/pieces/queenw");
 		} else {
@@ -27,7 +28,9 @@ public class Queen extends Pieces {
 			
 			//diagonal
 			if(Math.abs(targetCol - preCol) == Math.abs(targetRow - preRow)) {
-				if(isValidSquare(targetCol, targetRow) && pieceIsOnStraightLine(targetCol, targetRow) == false) {
+				
+				
+				if(isValidSquare(targetCol, targetRow) && pieceIsOnDiagonalLine(targetCol, targetRow) == false) {
 					return true;
 				}
 			}

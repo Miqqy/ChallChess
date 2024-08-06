@@ -1,12 +1,13 @@
 package pieces;
 
+import main.PieceType;
 import main.Screen;
 
 public class Bishop extends Pieces {
 
 	public Bishop(int color, int col, int row) {
 		super(color, col, row);
-
+		type = PieceType.BISHOP;
 		if (color == Screen.WHITE) {
 			img = getImg("/pieces/bishopw");
 		} else {

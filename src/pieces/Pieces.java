@@ -7,16 +7,17 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import main.ChessBoard;
+import main.PieceType;
 import main.Screen;
 
 public class Pieces {
-
+	public PieceType type;
 	public BufferedImage img;
 	public int x, y;
 	public int col, row, preCol, preRow;
 	public int color;
 	public Pieces hittingP;
-	public boolean moved;
+	public boolean moved, twoStepped;
 
 	public Pieces(int color, int col, int row) {
 		this.color = color;
@@ -69,6 +70,13 @@ public class Pieces {
 	}
 
 	public void updatePosition() {
+		
+		if(type == PieceType.PAWN) {
+			if(Math.abs(row - preRow) == 2) {
+				twoStepped = true;
+			}
+		}
+		
 		x = getX(col);
 		y = getY(row);
 		preCol = getCol(x);
@@ -132,6 +140,7 @@ public class Pieces {
 		//when moving left
 		for(int c = preCol - 1; c > targetCol; c--) {
 			for(Pieces piece : Screen.simPieces) {
+				
 				if(piece.col == c && piece.row == targetRow) {
 					hittingP = piece;
 					return true;
@@ -142,6 +151,7 @@ public class Pieces {
 		//when moving right
 		for(int c = preCol + 1; c < targetCol; c++) {
 			for(Pieces piece : Screen.simPieces) {
+			
 				if(piece.col == c && piece.row == targetRow) {
 					hittingP = piece;
 					return true;
@@ -150,8 +160,9 @@ public class Pieces {
 		}	
 			
 		//when moving up
-		for(int r = preCol - 1; r > targetRow; r--) {
+		for(int r = preRow - 1; r > targetRow; r--) {
 			for(Pieces piece : Screen.simPieces) {
+			
 				if(piece.col == targetCol && piece.row == r) {
 					hittingP = piece;
 					return true;
@@ -160,7 +171,7 @@ public class Pieces {
 		}
 		
 		//when moving down
-		for(int r = preCol + 1; r < targetRow; r++) {
+		for(int r = preRow + 1; r < targetRow; r++) {
 			for(Pieces piece : Screen.simPieces) {
 				if(piece.col == targetCol && piece.row == r) {
 					hittingP = piece;

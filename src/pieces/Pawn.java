@@ -1,12 +1,13 @@
 package pieces;
 
+import main.PieceType;
 import main.Screen;
 
 public class Pawn extends Pieces {
 
 	public Pawn(int color, int col, int row) {
 		super(color, col, row);
-
+		type = PieceType.PAWN;
 		if (color == Screen.WHITE) {
 			img = getImg("/pieces/ponw");
 		} else {
@@ -42,6 +43,18 @@ public class Pawn extends Pieces {
 			if(Math.abs(targetCol - preCol) == 1 && targetRow == preRow + moveValue && hittingP != null && hittingP.color != color) {
 				return true;
 			}
+			
+			if(Math.abs(targetCol - preCol) == 1 && targetRow == preRow + moveValue) {
+				for(Pieces piece: Screen.simPieces) {
+					if(piece.col == targetCol && piece.row == preRow && piece.twoStepped == true) {
+						hittingP = piece;
+						return true;
+					}
+				}
+			
+			}
+			
+			
 		}
 		return false;
 	}
